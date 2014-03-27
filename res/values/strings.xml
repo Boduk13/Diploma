@@ -2,4 +2,11 @@
 <resources>
     <string name="hello">Hello World, CopyDbActivity!</string>
     <string name="app_name">NewDuplom</string>
+
+    <string name="_id">_id</string>
+    <string name="status_mes">status_mes</string>
+    <string name="description">description</string>
+    <string name="net_action">net_action</string>
+    <string name="on_site_action">on_site_action</string>
+
 </resources>

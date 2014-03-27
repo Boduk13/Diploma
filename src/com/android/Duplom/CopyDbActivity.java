@@ -5,6 +5,7 @@ package com.android.Duplom;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -81,22 +82,17 @@ public class CopyDbActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("item", "###itemSelect: id= " + c.getString(0) + ", status mes = "
-                        + c.getString(1)+ ", descr="+c.getString(2));
-
 
                 ErrorMassege errorMassege = new ErrorMassege(c.getString(1),c.getString(2),c.getString(3),c.getString(4));
 
-                Toast.makeText(CopyDbActivity.this, "###itemSelect: id= " + c.getString(0)
-                        + ", status mes = "
-                        + errorMassege.getStatusMessage()
-                        + ", descr="+ errorMassege.getDescription()
-                        +", net= "+ errorMassege.getNetworkAction()
-                        +", on site= "
-                        + errorMassege.getOnSiteAction(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CopyDbActivity.this, ShowActivity.class);
 
+                intent.putExtra(String.valueOf(R.string.status_mes), errorMassege.getStatusMessage());
+                intent.putExtra(String.valueOf(R.string.description), errorMassege.getDescription());
+                intent.putExtra(String.valueOf(R.string.net_action), errorMassege.getNetworkAction());
+                intent.putExtra(String.valueOf(R.string.on_site_action), errorMassege.getOnSiteAction());
 
-
+                startActivity(intent);
 
 
             }
