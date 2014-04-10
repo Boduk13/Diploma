@@ -47,8 +47,6 @@ public class MailReader
 
             /* Mention the folder name which you want to read. */
 
-            // inbox = store.getDefaultFolder();
-            // inbox = inbox.getFolder("INBOX");
             inbox = store.getFolder("INBOX");
 
             /* Open the inbox using store. */
@@ -90,17 +88,7 @@ public class MailReader
 
         }
 
-        /*
-         * catch (NoSuchProviderException e)
-         *
-         * {
-         *
-         * e.printStackTrace();
-         *
-         * System.exit(1);
-         *
-         * }
-         */
+        
         catch (MessagingException e)
 
         {
@@ -122,9 +110,12 @@ public class MailReader
         for (int i = 0; i < msgs.length; i++)
 
         {
-            if(msgs[i].getSubject() == null){ System.out.println("#Subject is NULL!");
+            if (msgs[i].getSubject().equals(null)) {
+
+                System.out.println("Subject is null!");
             } else
-            if (msgs[i].getSubject().equals("1C")){
+            if (msgs[i].getSubject().equals("Користувач Google+, якого ви можете знати"))
+            {
 
             System.out.println("MESSAGE #" + (i + 1) + ":");
 
