@@ -9,4 +9,8 @@
     <string name="net_action">net_action</string>
     <string name="on_site_action">on_site_action</string>
 
+    <string name="setting">Setting</string>
+    <string name="exit">Exit</string>
+    <string name="about">About</string>
+
 </resources>

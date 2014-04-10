@@ -1,9 +1,6 @@
 package com.android.Duplom;
 
 
-
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,9 +8,14 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.*;
+
+import java.io.IOException;
 
 import static com.android.Duplom.R.layout;
 
@@ -29,17 +31,19 @@ public class CopyDbActivity extends Activity {
     SimpleCursorAdapter adapter;
     private ListView listView;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.main);
 
-       //Init varibl
+
+        //Init varibl
         myDbHelper = new DatabaseHelper(CopyDbActivity.this);
         input = (EditText) findViewById(R.id.editText);
         listView = (ListView) findViewById(R.id.listView);
-        from = new String[] { myDbHelper.status_mes};
-        to = new int[] { R.id.tvText };
+        from = new String[]{myDbHelper.status_mes};
+        to = new int[]{R.id.tvText};
 
 
         //Open Data base
@@ -50,14 +54,64 @@ public class CopyDbActivity extends Activity {
         input.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText("");
+                //on click edit text
             }
         });
 
         // создааем адаптер и настраиваем список
-        c = myDbHelper.fetchRecordsByQuery();
-        adapter = new SimpleCursorAdapter(CopyDbActivity.this, R.layout.item, c, from, to, 0);
-        listView.setAdapter(adapter);
+        updateList();
+        //processing list
+        listProcessing();
+
+
+
+
+    }
+
+//add menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // TODO Auto-generated method stub
+        menu.add (Menu.FIRST, 1, 1, R.string.setting).setIcon(R.drawable.ic_menu_preferences);
+        menu.add (Menu.FIRST, 2, 2, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
+        menu.add (Menu.FIRST, 3, 3, R.string.exit).setIcon(R.drawable.ic_menu_logout);
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+
+
+        switch (item.getItemId()) {
+            case 1:
+                Toast.makeText(getApplicationContext(),
+                        "You selected Settings", Toast.LENGTH_LONG).show();
+                return true;
+
+            case 2:
+                Toast.makeText(getApplicationContext(),
+                        "You selected About", Toast.LENGTH_LONG).show();
+                return true;
+
+            case 3:
+                Toast.makeText(getApplicationContext(),
+                        "You selected Exit", Toast.LENGTH_LONG).show();
+                finish();
+
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+    public void listProcessing(){
 
         //on cheng text
         input.addTextChangedListener(new TextWatcher() {
@@ -78,12 +132,12 @@ public class CopyDbActivity extends Activity {
             }
         });
 
-        //selected item
+        //selected item list
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ErrorMassege errorMassege = new ErrorMassege(c.getString(1),c.getString(2),c.getString(3),c.getString(4));
+                ErrorMassege errorMassege = new ErrorMassege(c.getString(1), c.getString(2), c.getString(3), c.getString(4));
 
                 Intent intent = new Intent(CopyDbActivity.this, ShowActivity.class);
 
@@ -98,11 +152,8 @@ public class CopyDbActivity extends Activity {
             }
         });
 
-
-
-               
-        
     }
+
     public void updateList(){
         searchText = input.getText();
 
@@ -113,6 +164,11 @@ public class CopyDbActivity extends Activity {
         adapter = new SimpleCursorAdapter(CopyDbActivity.this,
                 R.layout.item, c, from, to, 0);
         listView.setAdapter(adapter);
+
+        //set animation
+        LayoutAnimationController controller = AnimationUtils
+                .loadLayoutAnimation(this, R.anim.list_layout_controller);
+        getListView().setLayoutAnimation(controller);
     }
 
 
@@ -131,6 +187,10 @@ public class CopyDbActivity extends Activity {
             throw sqle;
         }
         Toast.makeText(CopyDbActivity.this, "Database is Ok!", Toast.LENGTH_SHORT).show();
+    }
+
+    public ListView getListView() {
+        return listView;
     }
 }
 
