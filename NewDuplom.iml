@@ -2,7 +2,10 @@
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android" name="Android">
-      <configuration />
+      <configuration>
+        <option name="APK_PATH" value="/out/production/NewDuplom/NewDuplom.apk" />
+        <option name="PACK_TEST_CODE" value="true" />
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -11,9 +14,12 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 15 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="mail-1.4 (1)" level="project" />
+    <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="additionnal" level="project" />
+    <orderEntry type="library" name="mail" level="project" />
+    <orderEntry type="library" name="android-support-v4" level="project" />
   </component>
 </module>
 

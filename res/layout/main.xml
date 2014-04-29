@@ -12,8 +12,9 @@
                   android:layout_height="wrap_content"
                   android:id="@+id/editText"
                   android:layout_weight="1"
-                  android:padding="10dp"
-                  android:hint="Enter code!"/>
+                  android:hint="Enter code!" android:textColor="#ff000c" android:background="#fbf0ff"
+                  android:paddingLeft="30dp" android:paddingRight="30dp" android:paddingTop="7dp"
+                  android:paddingBottom="7dp" android:textColorHint="#127d06"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -22,6 +23,7 @@
         <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/listView"/>
+                android:id="@+id/listView" android:paddingRight="10dp"
+                android:paddingTop="10dp" android:paddingBottom="10dp" android:paddingLeft="20dp"/>
     </LinearLayout>
 </LinearLayout>

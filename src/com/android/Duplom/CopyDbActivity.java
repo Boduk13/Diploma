@@ -2,6 +2,9 @@ package com.android.Duplom;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Application;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.*;
+import com.android.Duplom.mail.SimpleEMail;
 
 import java.io.IOException;
 
@@ -88,8 +92,12 @@ public class CopyDbActivity extends Activity {
 
         switch (item.getItemId()) {
             case 1:
-                Toast.makeText(getApplicationContext(),
-                        "You selected Settings", Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(CopyDbActivity.this, MailReaderActyvity.class);
+                Intent intent = new Intent(CopyDbActivity.this, SimpleEMail.class);
+                startActivity(intent);
+
+
+                Toast.makeText(getApplicationContext(),"You selected Settings", Toast.LENGTH_LONG).show();
                 return true;
 
             case 2:
@@ -100,9 +108,29 @@ public class CopyDbActivity extends Activity {
             case 3:
                 Toast.makeText(getApplicationContext(),
                         "You selected Exit", Toast.LENGTH_LONG).show();
-                finish();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(CopyDbActivity.this);
+                alertDialog.setTitle("Exit?");
 
+                alertDialog.setMessage("Are you sure, exit?");
+
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        finish();
+
+                    }
+                });
+
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialog.show();
                 return true;
+
+
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -146,6 +174,10 @@ public class CopyDbActivity extends Activity {
                 intent.putExtra(String.valueOf(R.string.net_action), errorMassege.getNetworkAction());
                 intent.putExtra(String.valueOf(R.string.on_site_action), errorMassege.getOnSiteAction());
 
+                ///check licensy
+
+                //....
+                //---
                 startActivity(intent);
 
 
@@ -153,6 +185,8 @@ public class CopyDbActivity extends Activity {
         });
 
     }
+
+
 
     public void updateList(){
         searchText = input.getText();
@@ -188,6 +222,7 @@ public class CopyDbActivity extends Activity {
         }
         Toast.makeText(CopyDbActivity.this, "Database is Ok!", Toast.LENGTH_SHORT).show();
     }
+
 
     public ListView getListView() {
         return listView;

@@ -7,7 +7,7 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="368dp">
+            android:layout_height="368dp" android:padding="30dp">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -19,9 +19,10 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
         <Button
-                android:layout_width="wrap_content"
+                android:layout_width="216dp"
                 android:layout_height="wrap_content"
                 android:text="Back!"
-                android:id="@+id/button_back" android:layout_gravity="center_horizontal"/>
+                android:id="@+id/button_back" android:layout_gravity="center" android:textStyle="bold"
+                />
     </LinearLayout>
 </LinearLayout>

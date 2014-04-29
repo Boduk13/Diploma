@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.android.Duplom.mail.MailSenderActivity;
 
 /**
  * Created by bodik on 26.03.14.
@@ -29,7 +33,8 @@ public class ShowActivity  extends Activity {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show);
+        setContentView(R.layout.show_description);
+
 
         Button btn = (Button)findViewById(R.id.button_back);
 
@@ -47,8 +52,11 @@ public class ShowActivity  extends Activity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.button_back:
-                        Intent intent = new Intent(ShowActivity.this, CopyDbActivity.class);
-                        startActivity(intent);
+
+
+                        onBackPressed();
+                        /*Intent intent = new Intent(ShowActivity.this, CopyDbActivity.class);
+                        startActivity(intent);*/
                         break;
                     default:
                         break;
@@ -60,4 +68,39 @@ public class ShowActivity  extends Activity {
         });
 
     }
+    //add menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // TODO Auto-generated method stub
+        menu.add (Menu.FIRST, 1, 1, R.string.setting).setIcon(R.drawable.ic_menu_preferences);
+        menu.add (Menu.FIRST, 2, 2, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
+
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+
+
+        switch (item.getItemId()) {
+            case 1:
+                Toast.makeText(getApplicationContext(),
+
+                        "You selected Settings", Toast.LENGTH_LONG).show();
+                return true;
+
+            case 2:
+                Toast.makeText(getApplicationContext(),
+                        "You selected About", Toast.LENGTH_LONG).show();
+                return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
