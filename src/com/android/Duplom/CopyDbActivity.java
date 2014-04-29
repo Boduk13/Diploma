@@ -80,6 +80,7 @@ public class CopyDbActivity extends Activity {
         menu.add (Menu.FIRST, 1, 1, R.string.setting).setIcon(R.drawable.ic_menu_preferences);
         menu.add (Menu.FIRST, 2, 2, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
         menu.add (Menu.FIRST, 3, 3, R.string.exit).setIcon(R.drawable.ic_menu_logout);
+        menu.add (Menu.FIRST, 4, 4, "read maill");
 
 
         return super.onCreateOptionsMenu(menu);
@@ -128,8 +129,6 @@ public class CopyDbActivity extends Activity {
 
                 alertDialog.show();
                 return true;
-
-
 
 
         }

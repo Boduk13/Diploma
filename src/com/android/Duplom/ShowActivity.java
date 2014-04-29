@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.Duplom.mail.MailSenderActivity;
+//import com.android.Duplom.mail.MailSenderActivity;
 
 /**
  * Created by bodik on 26.03.14.
