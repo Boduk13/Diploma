@@ -164,9 +164,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                         description,net_action, on_site_action }, status_mes + " LIKE" + "'%" + query + "%'", null,
                 null, null, null, null);
     }
-    public Cursor fetchRecordsByQuery() {
-        return myDataBase.query(true, table_name, new String[] { ID,status_mes,
-                        description,net_action, on_site_action }, null, null,
+    public Cursor getIDrecord() {
+        return myDataBase.query(true, "imei", new String[] { "id","device_id" }, null, null,
                 null, null, null, null);
     }
 

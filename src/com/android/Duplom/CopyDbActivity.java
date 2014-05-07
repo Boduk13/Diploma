@@ -3,14 +3,16 @@ package com.android.Duplom;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -173,11 +175,28 @@ public class CopyDbActivity extends Activity {
                 intent.putExtra(String.valueOf(R.string.net_action), errorMassege.getNetworkAction());
                 intent.putExtra(String.valueOf(R.string.on_site_action), errorMassege.getOnSiteAction());
 
-                ///check licensy
 
+
+///get imei
+                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                String device_id = tm.getDeviceId();
+                Log.d(TAG,"IMEI_p= "+device_id);
+
+///get imei from bd
+                Cursor imei = myDbHelper.getIDrecord();
+                imei.getString(0);
+                String imei_from_bd = imei.getString(1);
+                Log.d(TAG,"IMEI_bd= "+imei_from_bd);
+
+
+///check licensy
+                if(imei_from_bd.equals(device_id)){
+                    startActivity(intent);
+                } else {
+                    Log.d(TAG,"No licence");
+                }
                 //....
                 //---
-                startActivity(intent);
 
 
             }
