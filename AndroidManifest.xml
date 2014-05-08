@@ -4,10 +4,14 @@
       package="com.android.Duplom"
       android:versionCode="1"
       android:versionName="1.0">
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-sdk android:minSdkVersion="16" />
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+
+    <application android:icon="@drawable/icon"
+                 android:label="@string/app_name"
+                 android:debuggable="true">
 
 
         <activity android:name=".SplashScreen" android:theme="@style/Theme.Splash">
@@ -26,6 +30,8 @@
         <activity android:name=".mail.MailSenderActivity"/>
         <activity android:name=".sendMessege.MainActivity"/>
         <activity android:name=".mail.SimpleEMail"/>
+        <activity android:name=".GetLicencyActivity"
+                  android:label="Licensy"/>
 
 
     </application>

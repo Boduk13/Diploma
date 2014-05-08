@@ -5,15 +5,11 @@ package com.android.Duplom.mail;
  */
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.android.Duplom.R;
-import com.android.Duplom.mailreader.GMailReader;
-import com.android.Duplom.mailreader.HomeActivity;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
@@ -96,12 +92,17 @@ public class SimpleEMail extends Activity {
                                 for(Message n:m){
 
 
-                                  if (n.getSubject().equals("1C")){
+                                  if (n.getSubject().equals("?????")){
                                       try {
                                           mp = (Multipart) n.getContent();
                                           bp = mp.getBodyPart(0);
-                                          Log.d(TAG,"Subject= "+n.getSubject());
-                                          Log.d(TAG,"Text= "+bp.getContent());
+
+                                          String subject, text;
+                                          subject = n.getSubject();
+                                          text = bp.getContent().toString();
+
+                                          Log.d(TAG,"Subject= "+subject);
+                                          Log.d(TAG,"Text= "+text);
                                       } catch (IOException e) {
                                           e.printStackTrace();
                                       }
