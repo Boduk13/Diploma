@@ -226,7 +226,7 @@ public class CopyDbActivity extends Activity {
 
         else
         {
-            clearLicency(mySharedPreferences);
+
             return false;
         }
     }
@@ -304,7 +304,7 @@ public class CopyDbActivity extends Activity {
 
         mySharedPreferences = getSharedPreferences(MY_PREF,MODE_WORLD_WRITEABLE);
         SharedPreferences.Editor editor = mySharedPreferences.edit().clear();
-         editor.commit();
+        editor.commit();
         Log.d(TAG, "licency cleared!");
     }
 

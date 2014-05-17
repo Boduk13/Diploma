@@ -13,4 +13,16 @@
     <string name="exit">Exit</string>
     <string name="about">About</string>
 
+
+    <string name="adminEmail">maryan4uk95@gmail.com</string>
+    <string name="subject">licency</string>
+    <string name="licency_kod">licency_kod</string>
+    <string name="user_email">user_email</string>
+    <string name="user_pass">user_pass</string>
+    <string name="messege_enter_email_data">Please enter you email data!</string>
+
+
+
+
+
 </resources>

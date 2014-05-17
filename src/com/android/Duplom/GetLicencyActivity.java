@@ -1,15 +1,19 @@
 package com.android.Duplom;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
@@ -24,8 +28,11 @@ import java.util.Properties;
 public class GetLicencyActivity extends Activity  {
     SharedPreferences mySharedPreferences;
     String TAG = "Try licensy";
+    final Context context = this;
 
-    public static String MY_PREF = "licency";
+    public String MY_PREF =  "licency";
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.getlicensy);
@@ -37,71 +44,68 @@ public class GetLicencyActivity extends Activity  {
         Button tryLicency = (Button) findViewById(R.id.tryLicency);
 
         tryLicency.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ///read messeges from gmail
-                //try licency
-                Runnable r=new Runnable() {
-                    @Override
-                    public void run() {
-                        Properties props = new Properties();
-                        props.setProperty("mail.store.protocol", "imaps");
-
-                        Session session = Session.getDefaultInstance(props, null);
-                        IMAPStore imapStore = null;
-
-                        try {
-                            imapStore = (IMAPStore) session.getStore("imaps");
-                            imapStore.connect("imap.gmail.com", "hbodya13@gmail.com", "BodikTurbo30043991");
-                            final IMAPFolder folder = (IMAPFolder) imapStore.getFolder("Inbox");
-                            folder.open(IMAPFolder.READ_ONLY);
-                            Message m[]=folder.getMessages();
+                                          @Override
+                                          public void onClick(View v) {
 
 
-                            Log.d(TAG, "Read messeges!");
+                                              ///check email and pasword
+                                              if (loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.user_email)).equals("") &&
+                                                      loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.user_pass)).equals("")) {
 
-                            Multipart mp;
-                            BodyPart bp;
-                            for(Message n:m){
+                                                  try {
+
+                                                      // get prompts.xml view
+                                                      LayoutInflater layoutInflater = LayoutInflater.from(context);
+
+                                                      View promptView = layoutInflater.inflate(R.layout.email_data_toast, null);
+
+                                                      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                                                      // set prompts.xml to be the layout file of the alertdialog builder
+                                                      alertDialogBuilder.setView(promptView);
+
+                                                      final EditText input_emai = (EditText) promptView.findViewById(R.id.userInput);
+                                                      final EditText input_pass = (EditText) promptView.findViewById(R.id.userInput2);
+
+                                                      // setup a dialog window
+                                                      alertDialogBuilder
+                                                              .setCancelable(false)
+                                                              .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                  public void onClick(DialogInterface dialog, int id) {
+                                                                      // get user input and set it to result
+
+                                                                      savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.user_email), input_emai.getText().toString());
+                                                                      savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.user_pass), input_pass.getText().toString());
+
+                                                                      serchLicency();
+                                                                  }
+                                                              })
+                                                              .setNegativeButton("Cancel",
+                                                                      new DialogInterface.OnClickListener() {
+                                                                          public void onClick(DialogInterface dialog, int id) {
+                                                                              dialog.cancel();
+                                                                          }
+                                                                      }
+                                                              );
+
+                                                      // create an alert dialog
+                                                      AlertDialog alertD = alertDialogBuilder.create();
+
+                                                      alertD.show();
+
+                                                  } catch (Exception e) {
+                                                      Log.d(TAG, "Error dialog");
+                                                      e.printStackTrace();
+                                                  }
+// ==-
+                                              };
+
+                                              //red messege
+                                              serchLicency();
+                                          };
+                                      });
 
 
-                                Log.d(TAG,"Subject="+n.getSubject());
-                                if (n.getSubject().equals("licency")){
-                                    Log.d(TAG,"licency find!");
-                                    try {
-
-                                        mp = (Multipart) n.getContent();
-                                        bp = mp.getBodyPart(0);
-
-                                        String text = (String) bp.getContent();
-                                        String tmp = text.substring(0,16);
-                                        String imei = getDivaceIMEI();
-
-                                        Log.d(TAG,"Imei= "+imei+" lenghts="+imei.length());
-                                        Log.d(TAG,"Text= "+tmp+" lenghts="+tmp.length());
-
-                                        savePreferences(mySharedPreferences, tmp);
-
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    break;
-                                }
-                            }
-                            Log.d(TAG,"Break");
-                        } catch (MessagingException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                };
-                Thread t=new Thread(r);
-                t.start();
-
-            }
-        });
 
         getLicency.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +114,8 @@ public class GetLicencyActivity extends Activity  {
                 String address, subject, emailtext;
                 String TAG = "GMailReader";
                 // Наши поля и кнопка
-                address = "maryan4uk95@gmail.com";
-                subject = "licency";
+                address = getApplicationContext().getString(R.string.adminEmail);
+                subject = getApplicationContext().getString(R.string.subject);
                 emailtext = getDivaceIMEI();
 
                 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -141,32 +145,36 @@ public class GetLicencyActivity extends Activity  {
         });
     }
 
-    protected void savePreferences(SharedPreferences mySharedPreferences,String kod)
+    protected void savePreferences(SharedPreferences mySharedPreferences, String key,String kod)
     {
+
+
 // получить доступ к объекту Editor, чтобы изменить общие настройки.
         mySharedPreferences = getSharedPreferences(MY_PREF,MODE_WORLD_WRITEABLE);
         SharedPreferences.Editor editor = mySharedPreferences.edit();
 // задать новые базовые типы в объекте общих настроек.
 
-        editor.putString("licency_kod", kod);
+        editor.putString(key, kod);
 
         editor.commit();
-        loadLicency(mySharedPreferences);
+        loadLicency(mySharedPreferences, key);
 
     }
 
-    public String loadLicency(SharedPreferences mySharedPreferences)
+    public String loadLicency(SharedPreferences mySharedPreferences, String key)
     {
 
         int mode = Activity.MODE_PRIVATE;
 
         mySharedPreferences = getSharedPreferences(MY_PREF, mode);
 
-        String stringPreference = mySharedPreferences.getString("licency_kod", "");
+        String stringPreference = mySharedPreferences.getString(key, "");
         Log.d(TAG, "Shared pref= " + stringPreference);
         return stringPreference;
 
     }
+
+
 
     private String getDivaceIMEI(){
         ///get imei
@@ -184,6 +192,83 @@ public class GetLicencyActivity extends Activity  {
         Log.d(TAG, "Divace licency= " + identifier);
         return identifier;
     }
+
+    public void clearLicency(SharedPreferences mySharedPreferences){
+
+        mySharedPreferences = getSharedPreferences(MY_PREF,MODE_WORLD_WRITEABLE);
+        SharedPreferences.Editor editor = mySharedPreferences.edit().clear();
+        editor.commit();
+        Log.d(TAG, "licency cleared!");
+    }
+
+    private void serchLicency(){
+        ///read messeges from gmail
+        //try licency
+        Runnable r=new Runnable() {
+            @Override
+            public void run() {
+
+                final String user_email = loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.user_email));
+                final String user_pass = loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.user_pass));
+
+                Properties props = new Properties();
+                props.setProperty("mail.store.protocol", "imaps");
+
+                Session session = Session.getDefaultInstance(props, null);
+                IMAPStore imapStore = null;
+
+                try {
+                    imapStore = (IMAPStore) session.getStore("imaps");
+                    imapStore.connect("imap.gmail.com", user_email, user_pass);
+                    final IMAPFolder folder = (IMAPFolder) imapStore.getFolder("Inbox");
+                    folder.open(IMAPFolder.READ_ONLY);
+                    Message m[]=folder.getMessages();
+
+
+                    Log.d(TAG, "Read messeges!");
+
+                    Multipart mp;
+                    BodyPart bp;
+                    for(Message n:m){
+
+
+                        Log.d(TAG,"Subject="+n.getSubject());
+                        if (n.getSubject().equals(getApplicationContext().getString(R.string.subject))){
+                            Log.d(TAG,"licency find!");
+                            try {
+
+                                mp = (Multipart) n.getContent();
+                                bp = mp.getBodyPart(0);
+
+                                String text = (String) bp.getContent();
+
+                                String imei = getDivaceIMEI();
+
+                                String tmp = text.substring(0,imei.length());
+                                Log.d(TAG,"Imei= "+imei+" lenghts="+imei.length());
+                                Log.d(TAG,"Text= "+tmp+" lenghts="+tmp.length());
+
+                                savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod), tmp);
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
+                    }
+                    Log.d(TAG,"Break");
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        Thread t=new Thread(r);
+        t.start();
+    }
+
+
 
 
 
