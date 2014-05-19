@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -28,14 +29,17 @@ import java.util.Properties;
 public class GetLicencyActivity extends Activity  {
     SharedPreferences mySharedPreferences;
     String TAG = "Try licensy";
-    final Context context = this;
+    Context context;
 
-    public String MY_PREF =  "licency";
-
+    public String MY_PREF;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.getlicensy);
+
+        context = getApplicationContext();
+
+        MY_PREF = context.getPackageName()+"_preferences";
 
         TextView licency = (TextView) findViewById(R.id.licency_view);
         licency.setText("You dont have licency!");
@@ -55,11 +59,11 @@ public class GetLicencyActivity extends Activity  {
                                                   try {
 
                                                       // get prompts.xml view
-                                                      LayoutInflater layoutInflater = LayoutInflater.from(context);
+                                                      LayoutInflater layoutInflater = LayoutInflater.from(GetLicencyActivity.this);
 
                                                       View promptView = layoutInflater.inflate(R.layout.email_data_toast, null);
 
-                                                      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                                                      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GetLicencyActivity.this);
 
                                                       // set prompts.xml to be the layout file of the alertdialog builder
                                                       alertDialogBuilder.setView(promptView);
@@ -98,10 +102,10 @@ public class GetLicencyActivity extends Activity  {
                                                       e.printStackTrace();
                                                   }
 // ==-
-                                              };
-
-                                              //red messege
-                                              serchLicency();
+                                              } else {
+                                                  //red messege
+                                                  serchLicency();
+                                              }
                                           };
                                       });
 

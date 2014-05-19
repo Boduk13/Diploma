@@ -32,6 +32,7 @@
         <activity android:name=".mail.SimpleEMail"/>
         <activity android:name=".GetLicencyActivity"
                   android:label="Licensy"/>
+        <activity android:name=".preferences.AppPreferences"/>
 
 
     </application>

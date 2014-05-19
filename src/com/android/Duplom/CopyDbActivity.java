@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
@@ -22,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.*;
 import com.android.Duplom.mail.SimpleEMail;
+import com.android.Duplom.preferences.AppPreferences;
 
 import java.io.IOException;
 
@@ -38,15 +40,21 @@ public class CopyDbActivity extends Activity {
     int[] to;
     SimpleCursorAdapter adapter;
     private ListView listView;
-    public static String MY_PREF = "licency";
     SharedPreferences mySharedPreferences;
 
 
+    Context context;
 
+
+    public String MY_PREF;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.main);
+
+        context=getApplicationContext();
+        MY_PREF = context.getPackageName()+"_preferences";
+
 
 
         //Init varibl
@@ -73,6 +81,8 @@ public class CopyDbActivity extends Activity {
         updateList();
         //processing list
         listProcessing();
+
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
 
 
@@ -101,7 +111,7 @@ public class CopyDbActivity extends Activity {
         switch (item.getItemId()) {
             case 1:
                 //Intent intent = new Intent(CopyDbActivity.this, MailReaderActyvity.class);
-                Intent intent = new Intent(CopyDbActivity.this, SimpleEMail.class);
+                Intent intent = new Intent(CopyDbActivity.this, AppPreferences.class);
                 startActivity(intent);
 
 
@@ -213,12 +223,6 @@ public class CopyDbActivity extends Activity {
         String device_licency = loadLicency(mySharedPreferences,"imei");
 
 
-        //test
-        //xml_licency = "16af5d471dbeb579";
-
-        //две строки равны, если
-       //if((xml_licency).compareToIgnoreCase(device_licency) == 0)
-       //if(TextUtils.equals(xml_licency, device_licency))
        if(xml_licency.equals(device_licency))
         {
         return true;
@@ -234,10 +238,8 @@ public class CopyDbActivity extends Activity {
 
 
     private String getDivaceIMEI(){
-        ///get imei
-       /* TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        return telephonyManager.getDeviceId();
-*/
+
+
         String identifier = null;
         TelephonyManager tm = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -322,6 +324,11 @@ public class CopyDbActivity extends Activity {
 
         return stringPreference;
 
+    }
+
+    protected void onResume() {
+
+        super.onResume();
     }
 
 }
