@@ -2,20 +2,23 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
  <PreferenceCategory
-         android:key="categ1"
-         android:summary="Description of category 1"
-         android:title="Category 1">
+         android:key="email"
+         android:summary="Email setting"
+         android:title="Email setting">
 <EditTextPreference
         android:key="@string/user_email"
-        android:title="You login:"
-        android:summary="@string/user_email"
-        android:defaultValue="hbodya13@gmail.com"
+        android:title="You login"
+        android:summary="Tap to chenge you email login!"
+        android:hint="You login"
+        android:defaultValue=""
         />
 
 <EditTextPreference android:key="@string/user_pass"
-                    android:title="You pass:"
-                    android:summary="@string/user_pass"
-                    android:defaultValue="Bodik-Turbo13"/>
+                    android:title="You password"
+                    android:summary="Tap to chenge you email password!"
+                    android:hint="You password"
+                    android:password="true"
+                    android:defaultValue=""/>
  </PreferenceCategory>
 
 

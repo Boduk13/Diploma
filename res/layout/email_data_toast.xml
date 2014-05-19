@@ -18,7 +18,8 @@
            android:id="@+id/userInput"
            android:layout_width="match_parent"
             android:inputType="text"
-           android:layout_height="wrap_content" >
+           android:layout_height="wrap_content"
+            android:hint="You login">
 
   	        <requestFocus />
 
@@ -28,7 +29,8 @@
             android:id="@+id/userInput2"
             android:layout_width="match_parent"
             android:inputType="text"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:hint="You password">
 
 
     </EditText>
