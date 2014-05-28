@@ -6,7 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.graphics.Color;
+import android.os.*;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 import javax.mail.*;
+import javax.mail.Message;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -29,6 +31,7 @@ public class GetLicencyActivity extends Activity  {
     SharedPreferences mySharedPreferences;
     String TAG = "Try licensy";
     Context context;
+    Handler h;
 
     public String MY_PREF;
 
@@ -40,12 +43,31 @@ public class GetLicencyActivity extends Activity  {
 
         MY_PREF = context.getPackageName()+"_preferences";
 
-        TextView licency = (TextView) findViewById(R.id.licency_view);
+        final TextView licency = (TextView) findViewById(R.id.licency_view);
         licency.setText("You dont have licency!");
 
         final Button getLicency = (Button) findViewById(R.id.getlicensy);
         Button tryLicency = (Button) findViewById(R.id.tryLicency);
 
+        h = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+                switch (msg.what) {
+                    case 1:
+                       licency.setTextColor(Color.RED);
+                       licency.setText("Please wait! Serching license...");
+                        break;
+                    case 2:
+                        licency.setTextColor(Color.GREEN);
+                        licency.setText("License Find! Press BACK!");
+                        break;
+                    case 3:
+
+                        break;
+                }
+            }
+
+            ;
+        };
         tryLicency.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
@@ -221,6 +243,7 @@ public class GetLicencyActivity extends Activity  {
                 IMAPStore imapStore = null;
 
                 try {
+                    h.sendEmptyMessage(1);
                     imapStore = (IMAPStore) session.getStore("imaps");
                     imapStore.connect("imap.gmail.com", user_email, user_pass);
                     final IMAPFolder folder = (IMAPFolder) imapStore.getFolder("Inbox");
@@ -258,10 +281,11 @@ public class GetLicencyActivity extends Activity  {
 
                                     String tmp = text.substring(0, 32);
                                             Log.d(TAG,"Imei= "+imei+" lenghts="+imei.length());
-                                    Log.d(TAG,"Text= "+tmp+" lenghts="+tmp.length());
+                                    Log.d(TAG, "Text= " + tmp + " lenghts=" + tmp.length());
 
                                     savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod), tmp);
 
+                                h.sendEmptyMessage(2);
 
                                 ///
 
