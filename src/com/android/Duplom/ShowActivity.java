@@ -2,8 +2,8 @@ package com.android.Duplom;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +23,13 @@ public class ShowActivity  extends Activity {
     String on_site_action;
 
     TextView rezultat;
+    TextView rezultat2;
+    TextView rezultat3;
+    TextView rezultat4;
+    TextView rezultat5;
+    TextView rezultat6;
+    TextView rezultat7;
+    TextView rezultat8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,11 +47,41 @@ public class ShowActivity  extends Activity {
         Button btn = (Button)findViewById(R.id.button_back);
 
 
-        rezultat = (TextView) findViewById(R.id.rezultat);
-        rezultat.setText(Html.fromHtml("<p><b>Status Message</b> : </p>" + status_mes
-                +"<br> <p><b>Description</b> : </p>" + description
-                +"<br> <p><b>Network Action</b> : </p>" + net_action
-                +"<br> <p><b>On-site Action</b> : </p>" + on_site_action ));
+        rezultat = (TextView) findViewById(R.id.textView);
+        rezultat2 = (TextView) findViewById(R.id.textView2);
+        rezultat3 = (TextView) findViewById(R.id.textView3);
+        rezultat4 = (TextView) findViewById(R.id.textView4);
+        rezultat5 = (TextView) findViewById(R.id.textView5);
+        rezultat6 = (TextView) findViewById(R.id.textView6);
+        rezultat7 = (TextView) findViewById(R.id.textView7);
+        rezultat8 = (TextView) findViewById(R.id.textView8);
+
+
+        ///set color
+        rezultat.setTextColor(Color.WHITE);
+        rezultat3.setTextColor(Color.WHITE);
+        rezultat5.setTextColor(Color.WHITE);
+        rezultat7.setTextColor(Color.WHITE);
+
+        rezultat2.setTextColor(Color.RED);
+        rezultat4.setTextColor(Color.GREEN);
+        rezultat6.setTextColor(Color.BLUE);
+        rezultat8.setTextColor(Color.BLUE);
+
+
+
+
+
+        rezultat.setText("Status Message:");
+        rezultat2.setText(status_mes + "\n");
+        rezultat3.setText("Description:");
+        rezultat4.setText(description + "\n");
+        rezultat5.setText("Network Action:");
+        rezultat6.setText(net_action + "\n");
+        rezultat7.setText("On-site Action:");
+        rezultat8.setText(on_site_action + "\n");
+
+
 
 
 
