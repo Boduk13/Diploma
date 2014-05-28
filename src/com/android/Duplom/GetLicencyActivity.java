@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -245,14 +244,30 @@ public class GetLicencyActivity extends Activity  {
                                 bp = mp.getBodyPart(0);
 
                                 String text = (String) bp.getContent();
+                                ///
 
-                                String imei = getDivaceIMEI();
 
-                                String tmp = text.substring(0,imei.length());
-                                Log.d(TAG,"Imei= "+imei+" lenghts="+imei.length());
-                                Log.d(TAG,"Text= "+tmp+" lenghts="+tmp.length());
 
-                                savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod), tmp);
+
+
+
+
+
+
+                                    String imei = getDivaceIMEI();
+
+                                    String tmp = text.substring(0, 32);
+                                            Log.d(TAG,"Imei= "+imei+" lenghts="+imei.length());
+                                    Log.d(TAG,"Text= "+tmp+" lenghts="+tmp.length());
+
+                                    savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod), tmp);
+
+
+                                ///
+
+
+
+                                //go back
 
 
                             } catch (IOException e) {
@@ -262,6 +277,7 @@ public class GetLicencyActivity extends Activity  {
                         }
                     }
                     Log.d(TAG,"Break");
+
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -272,9 +288,10 @@ public class GetLicencyActivity extends Activity  {
         t.start();
     }
 
+    public String kryptograf(String text){
 
 
-
-
+        return null;
+    }
 
 }

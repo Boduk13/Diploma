@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.android.Duplom.preferences.AppPreferences;
 //import com.android.Duplom.mail.MailSenderActivity;
 
 /**
@@ -88,9 +89,8 @@ public class ShowActivity  extends Activity {
 
         switch (item.getItemId()) {
             case 1:
-                Toast.makeText(getApplicationContext(),
-
-                        "You selected Settings", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ShowActivity.this, AppPreferences.class);
+                startActivity(intent);
                 return true;
 
             case 2:

@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.*;
-import com.android.Duplom.mail.SimpleEMail;
+import com.android.Duplom.finish_decrypt.AESHelper;
 import com.android.Duplom.preferences.AppPreferences;
 
 import java.io.IOException;
@@ -97,7 +97,6 @@ public class CopyDbActivity extends Activity {
         menu.add (Menu.FIRST, 1, 1, R.string.setting).setIcon(R.drawable.ic_menu_preferences);
         menu.add (Menu.FIRST, 2, 2, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
         menu.add (Menu.FIRST, 3, 3, R.string.exit).setIcon(R.drawable.ic_menu_logout);
-        menu.add (Menu.FIRST, 4, 4, "read maill");
 
 
         return super.onCreateOptionsMenu(menu);
@@ -110,7 +109,7 @@ public class CopyDbActivity extends Activity {
 
         switch (item.getItemId()) {
             case 1:
-                //Intent intent = new Intent(CopyDbActivity.this, MailReaderActyvity.class);
+
                 Intent intent = new Intent(CopyDbActivity.this, AppPreferences.class);
                 startActivity(intent);
 
@@ -197,14 +196,18 @@ public class CopyDbActivity extends Activity {
 
 
 ///check licensy
-                if(checkLicency()){
-                    Log.d(TAG,"Licency Ok!");
-                    startActivity(intent);
-                } else {
-                    Log.d(TAG,"No licence");
-                    Intent getLicency = new Intent(CopyDbActivity.this, GetLicencyActivity.class);
-                    startActivity(getLicency);
+                try {
+                    if(checkLicency()){
+                        Log.d(TAG,"Licency Ok!");
+                        startActivity(intent);
+                    } else {
+                        Log.d(TAG,"No licence");
+                        Intent getLicency = new Intent(CopyDbActivity.this, GetLicencyActivity.class);
+                        startActivity(getLicency);
 
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 //....
@@ -216,14 +219,29 @@ public class CopyDbActivity extends Activity {
 
     }
 
-    public boolean checkLicency(){
+    public boolean checkLicency() throws Exception {
 
-        String xml_licency = (String) loadLicency(mySharedPreferences, "licency_kod");
-       savePreferences(mySharedPreferences,"imei", getDivaceIMEI());
-        String device_licency = loadLicency(mySharedPreferences,"imei");
+        String normalText = getDivaceIMEI();
+        String normalTextEnc = loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod));
+        String seedValue ="bodik";
+        Log.d("rsa", "key+ " + seedValue);
+        String normalTextDec = null;
+        try {
+            //normalTextEnc = AESHelper.encrypt(seedValue, normalText);
+            normalTextDec = AESHelper.decrypt(seedValue, normalTextEnc);
+            //TextView txe = new TextView(this);
+           // txe.setTextSize(14);
+            //txe.setText("Normal Text ::" + normalText + " \n Encrypted Value :: " + normalTextEnc + " \n Decrypted value :: " + normalTextDec);
+            Log.d("RSA","Normal Text ::"+normalText +" \n Encrypted Value :: "+normalTextEnc +" \n Decrypted value :: "+normalTextDec);
+          //  setContentView(txe);
+        } catch (Exception e) {
+            Log.d(TAG,"error decrypt");
 
-
-       if(xml_licency.equals(device_licency))
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+       if(normalTextDec.equals(normalText))
         {
         return true;
         }

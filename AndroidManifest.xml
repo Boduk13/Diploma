@@ -7,6 +7,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-sdk android:minSdkVersion="16" />
 
     <application android:icon="@drawable/icon"
@@ -33,6 +34,7 @@
         <activity android:name=".GetLicencyActivity"
                   android:label="Licensy"/>
         <activity android:name=".preferences.AppPreferences"/>
+        <activity android:name=".finish_decrypt.MainActivity"></activity>
 
 
     </application>
