@@ -20,6 +20,7 @@
     <orderEntry type="library" name="additionnal" level="project" />
     <orderEntry type="library" name="mail" level="project" />
     <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="library" name="commons-codec-1.9-javadoc" level="project" />
   </component>
 </module>
 

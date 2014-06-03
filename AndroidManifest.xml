@@ -30,7 +30,6 @@
         <activity android:name=".ShowActivity"/>
         <activity android:name=".mail.MailSenderActivity"/>
         <activity android:name=".sendMessege.MainActivity"/>
-        <activity android:name=".mail.SimpleEMail"/>
         <activity android:name=".GetLicencyActivity"
                   android:label="Licensy"/>
         <activity android:name=".preferences.AppPreferences"/>

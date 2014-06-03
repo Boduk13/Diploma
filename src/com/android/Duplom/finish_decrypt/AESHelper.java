@@ -52,6 +52,8 @@ public class AESHelper {
         return decrypted;
     }
 
+
+
     public static String toHex(String txt) {
         return toHex(txt.getBytes());
     }

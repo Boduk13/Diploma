@@ -189,12 +189,6 @@ public class CopyDbActivity extends Activity {
                 intent.putExtra(String.valueOf(R.string.net_action), errorMassege.getNetworkAction());
                 intent.putExtra(String.valueOf(R.string.on_site_action), errorMassege.getOnSiteAction());
 
-
-
-
-
-
-
 ///check licensy
                 try {
                     if(checkLicency()){
@@ -224,15 +218,16 @@ public class CopyDbActivity extends Activity {
         String normalText = getDivaceIMEI();
         String normalTextEnc = loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod));
         String seedValue ="bodik";
-        Log.d("rsa", "key+ " + seedValue);
-        String normalTextDec = null;
+        Log.d("aes", "key+ " + seedValue);
+        String normalTextDec = " ";
         try {
-            //normalTextEnc = AESHelper.encrypt(seedValue, normalText);
-            normalTextDec = AESHelper.decrypt(seedValue, normalTextEnc);
-            //TextView txe = new TextView(this);
-           // txe.setTextSize(14);
-            //txe.setText("Normal Text ::" + normalText + " \n Encrypted Value :: " + normalTextEnc + " \n Decrypted value :: " + normalTextDec);
-            Log.d("RSA","Normal Text ::"+normalText +" \n Encrypted Value :: "+normalTextEnc +" \n Decrypted value :: "+normalTextDec);
+
+
+            normalTextEnc = normalTextEnc.replaceAll(" ","");
+            Log.d(TAG, normalTextEnc);
+
+            normalTextDec = AESHelper.decrypt(seedValue,normalTextEnc);
+            Log.d(TAG, normalTextDec);
           //  setContentView(txe);
         } catch (Exception e) {
             Log.d(TAG,"error decrypt");

@@ -194,7 +194,7 @@ public class GetLicencyActivity extends Activity  {
         mySharedPreferences = getSharedPreferences(MY_PREF, mode);
 
         String stringPreference = mySharedPreferences.getString(key, "");
-        Log.d(TAG, "Shared pref= " + stringPreference);
+        Log.d(TAG, "Shared pref=" + stringPreference);
         return stringPreference;
 
     }
@@ -266,25 +266,26 @@ public class GetLicencyActivity extends Activity  {
                                 mp = (Multipart) n.getContent();
                                 bp = mp.getBodyPart(0);
 
+                                String imei = getDivaceIMEI();
                                 String text = (String) bp.getContent();
+                                char[] imei_from_email = text.toCharArray();
+                                System.out.println(text+ "lenghth =" + text.length());
+                              String replese = text.replaceAll("[\n\r]", "");
+
+                                //replese = text.replaceAll(" ","");
+
+                                System.out.println(replese+ "lenghth =" + replese.length());
+
                                 ///
 
 
 
 
 
-
-
-
-
-                                    String imei = getDivaceIMEI();
-
-                                    String tmp = text.substring(0, 32);
                                             Log.d(TAG,"Imei= "+imei+" lenghts="+imei.length());
-                                    Log.d(TAG, "Text= " + tmp + " lenghts=" + tmp.length());
+                                    Log.d(TAG, "Text= " + replese + " lenghts=" + replese.length());
 
-                                    savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod), tmp);
-
+                                    savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod), replese);
                                 h.sendEmptyMessage(2);
 
                                 ///
@@ -312,10 +313,6 @@ public class GetLicencyActivity extends Activity  {
         t.start();
     }
 
-    public String kryptograf(String text){
 
-
-        return null;
-    }
 
 }
