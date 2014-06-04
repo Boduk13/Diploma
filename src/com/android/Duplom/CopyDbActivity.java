@@ -69,13 +69,29 @@ public class CopyDbActivity extends Activity {
         openDB();
 
 
-        //clear input after click
-        input.setOnClickListener(new View.OnClickListener() {
+
+        //validation input text
+        input.addTextChangedListener(new TextWatcher() {
+
             @Override
-            public void onClick(View v) {
-                //on click edit text
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+
             }
         });
+
+
 
         // создааем адаптер и настраиваем список
         updateList();
@@ -86,6 +102,25 @@ public class CopyDbActivity extends Activity {
 
 
 
+
+    }
+
+    public void is_Valid_Person_Name(EditText edt) throws NumberFormatException {
+        if (edt.getText().toString() == null) {
+
+
+        } else
+
+           if (!edt.getText().toString().matches("[a-zA-Z0-9 ]+")) {
+                edt.setError("Accept Alphabets and Numbers Only!");
+                searchText = null;
+            }
+
+            else if (c.getCount() == 0) {
+                edt.setError("Your code is not found in database. Please update program or database!");
+
+
+        }
 
     }
 
@@ -171,6 +206,7 @@ public class CopyDbActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                is_Valid_Person_Name(input);
 
             }
         });
@@ -264,8 +300,9 @@ public class CopyDbActivity extends Activity {
     return identifier;
     }
     public void updateList(){
-        searchText = input.getText();
 
+
+        searchText = input.getText();
         c = myDbHelper.fetchRecordsByQuery(searchText);
 
 

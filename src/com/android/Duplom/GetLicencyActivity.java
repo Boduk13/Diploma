@@ -7,9 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +23,6 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 import javax.mail.*;
-import javax.mail.Message;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -32,6 +34,8 @@ public class GetLicencyActivity extends Activity  {
     String TAG = "Try licensy";
     Context context;
     Handler h;
+    EditText input_emai = null;
+    String emailtosave;
 
     public String MY_PREF;
 
@@ -89,17 +93,37 @@ public class GetLicencyActivity extends Activity  {
                                                       // set prompts.xml to be the layout file of the alertdialog builder
                                                       alertDialogBuilder.setView(promptView);
 
-                                                      final EditText input_emai = (EditText) promptView.findViewById(R.id.userInput);
+                                                     input_emai = (EditText) promptView.findViewById(R.id.userInput);
                                                       final EditText input_pass = (EditText) promptView.findViewById(R.id.userInput2);
 
-                                                      // setup a dialog window
+
+                                                      input_emai.addTextChangedListener(new TextWatcher() {
+                                                                                            @Override
+                                                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+                                                                                            }
+
+                                                                                            @Override
+                                                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                                                                            }
+
+                                                                                            @Override
+                                                                                            public void afterTextChanged(Editable s) {
+                                                                                            /////valiadate email
+                                                                                                Is_Valid_Email(input_emai);
+                                                                                            }
+                                                                                        });
+
+                                                          // setup a dialog window
                                                       alertDialogBuilder
                                                               .setCancelable(false)
                                                               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                                   public void onClick(DialogInterface dialog, int id) {
                                                                       // get user input and set it to result
 
-                                                                      savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.user_email), input_emai.getText().toString());
+                                                                      savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.user_email), emailtosave);
                                                                       savePreferences(mySharedPreferences, getApplicationContext().getString(R.string.user_pass), input_pass.getText().toString());
 
                                                                       serchLicency();
@@ -155,20 +179,27 @@ public class GetLicencyActivity extends Activity  {
                 // О чём
                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
                         emailtext);
-                   /* // С чем
-                    emailIntent.putExtra(
-                            android.content.Intent.EXTRA_STREAM,
-                            Uri.parse("file://"
-                                    + Environment.getExternalStorageDirectory()
-                                    + "/Клипы/SOTY_ATHD.mp4"));
 
-                    emailIntent.setType("text/video");*/
-                // Поехали!
                 GetLicencyActivity.this.startActivity(Intent.createChooser(emailIntent,
                         "Отправка письма..."));
             }
         });
     }
+    public void Is_Valid_Email(EditText edt) {
+        if (edt.getText().toString() == null) {
+            edt.setError("Invalid Email Address");
+            emailtosave = null;
+        } else if (isEmailValid(edt.getText().toString()) == false) {
+            edt.setError("Invalid Email Address");
+            emailtosave = null;
+        } else {
+            emailtosave = edt.getText().toString();
+        }
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    } // end of email matcher
 
     protected void savePreferences(SharedPreferences mySharedPreferences, String key,String kod)
     {
