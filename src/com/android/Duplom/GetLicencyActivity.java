@@ -41,6 +41,7 @@ public class GetLicencyActivity extends Activity  {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Green);
         setContentView(R.layout.getlicensy);
 
         context = getApplicationContext();

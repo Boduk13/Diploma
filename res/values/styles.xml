@@ -1,6 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <style name="Theme.Splash" parent="android:Theme">
         <item name="android:windowBackground">@drawable/screen</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <!-- =============== -->
+    <!--   Blue styles   -->
+    <!-- =============== -->
+
+    <!-- blue text view style -->
+    <style name="blue_text_view_1">
+        <item name="android:textColor">#60c4e4</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#DDD</item>
+    </style>
+
+    <!-- blue text view style -->
+    <style name="blue_text_view_2">
+        <item name="android:textColor">#60c4e4</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#DDD</item>
+    </style>
+
+    <!-- blue button style -->
+    <style name="blue_button" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/blue_button</item>
+    </style>
+
+    <!-- blue edit text style -->
+    <style name="blue_edit_text" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/blue_edit_text</item>
+    </style>
+
+    <!-- blue edit text style -->
+    <style name="blue_list_view">
+        <item name="android:listSelector">@drawable/blue_list_view_item</item>
+    </style>
+    <!-- =============== -->
+    <!--  Green styles   -->
+    <!-- =============== -->
+
+    <!-- green text view style -->
+    <style name="green_text_view_1">
+        <item name="android:textColor">#72b817</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#DDD</item>
+    </style>
+
+    <!-- green text view style -->
+    <style name="green_text_view_2">
+        <item name="android:textColor">#72b817</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#DDD</item>
+    </style>
+
+    <!-- green button style -->
+    <style name="green_button" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/green_button</item>
+    </style>
+
+    <!-- green edit text style -->
+    <style name="green_edit_text" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/green_edit_text</item>
+    </style>
+
+    <!-- green list view style -->
+    <style name="green_list_view">
+        <item name="android:listSelector">@drawable/green_list_view_item</item>
+    </style>
 </resources>
+

@@ -20,6 +20,17 @@
                     android:password="true"
                     android:defaultValue=""/>
  </PreferenceCategory>
+ <PreferenceCategory>
+     <ListPreference
+
+             android:key="PREF_LIST"
+             android:title="Theme"
+             android:summary="Select your theme"
+             android:entries="@array/listentries"
+             android:entryValues="@array/listvalues"
+             android:defaultValue="1"
+        />
+ </PreferenceCategory>
 
 
 </PreferenceScreen>

@@ -8,22 +8,40 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-        <EditText android:layout_width="wrap_content"
+        <EditText android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:id="@+id/editText"
-                  android:layout_weight="1"
-                  android:hint="Enter code!" android:textColor="#ff000c" android:background="#fbf0ff"
-                  android:paddingLeft="30dp" android:paddingRight="30dp" android:paddingTop="7dp"
-                  android:paddingBottom="7dp" android:textColorHint="#127d06"/>
+                  android:hint="Enter code!"
+                  android:textColor="#ff000c"
+
+                  android:textColorHint="#127d06"
+
+                 android:layout_weight="1"
+
+
+                  android:paddingLeft="30dp"
+                  android:paddingRight="30dp"
+                  android:paddingTop="7dp"
+                  android:paddingBottom="7dp"
+                />
+
+
     </LinearLayout>
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:focusable="true">
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            >
         <ListView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/listView" android:paddingRight="10dp"
-                android:paddingTop="10dp" android:paddingBottom="10dp" android:paddingLeft="20dp"/>
+                android:id="@+id/listView"
+
+                />
+
+
     </LinearLayout>
 </LinearLayout>

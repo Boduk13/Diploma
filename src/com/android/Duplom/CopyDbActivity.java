@@ -27,21 +27,20 @@ import com.android.Duplom.preferences.AppPreferences;
 
 import java.io.IOException;
 
-import static com.android.Duplom.R.layout;
-
 public class CopyDbActivity extends Activity {
 
 	Cursor c=null;
     DatabaseHelper myDbHelper;
     String TAG = "Database";
     EditText input;
+
     Editable searchText;
     String[] from;
     int[] to;
     SimpleCursorAdapter adapter;
     private ListView listView;
     SharedPreferences mySharedPreferences;
-
+    String prefList;
 
     Context context;
 
@@ -50,10 +49,28 @@ public class CopyDbActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.main);
+
+
 
         context=getApplicationContext();
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         MY_PREF = context.getPackageName()+"_preferences";
+
+
+
+
+
+
+
+
+
+        prefList = loadLicency(mySharedPreferences, "PREF_LIST");
+        if (prefList.equals("1")){
+            setTheme(R.style.Theme_Blue);
+        } else {
+            setTheme(R.style.Theme_Green);
+        }
+        setContentView(R.layout.main);
 
 
 
@@ -70,40 +87,15 @@ public class CopyDbActivity extends Activity {
 
 
 
-        //validation input text
-        input.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-
-            }
-        });
-
-
-
         // создааем адаптер и настраиваем список
         updateList();
         //processing list
         listProcessing();
 
-        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-
-
-
     }
+
+
+
 
     public void is_Valid_Person_Name(EditText edt) throws NumberFormatException {
         if (edt.getText().toString().equals("")) {
@@ -112,11 +104,13 @@ public class CopyDbActivity extends Activity {
         } else
 
            if (!edt.getText().toString().matches("[a-zA-Z0-9 ]+")) {
+
                 edt.setError("Accept Alphabets and Numbers Only!");
                 searchText = null;
             }
 
             else if (c.getCount() == 0) {
+
                 edt.setError("Your code is not found in database. Please update program or database!");
 
 
@@ -124,7 +118,8 @@ public class CopyDbActivity extends Activity {
 
     }
 
-//add menu
+
+    //add menu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -200,12 +195,15 @@ public class CopyDbActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
                 //update list when text chenging
                 updateList();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 is_Valid_Person_Name(input);
 
             }
