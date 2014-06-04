@@ -106,7 +106,7 @@ public class CopyDbActivity extends Activity {
     }
 
     public void is_Valid_Person_Name(EditText edt) throws NumberFormatException {
-        if (edt.getText().toString() == null) {
+        if (edt.getText().toString().equals("")) {
 
 
         } else
