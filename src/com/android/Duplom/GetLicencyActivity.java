@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
@@ -36,17 +37,30 @@ public class GetLicencyActivity extends Activity  {
     Handler h;
     EditText input_emai = null;
     String emailtosave;
+    String prefList;
 
     public String MY_PREF;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_Green);
+        context=getApplicationContext();
+        MY_PREF = context.getPackageName()+"_preferences";
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        prefList = loadLicency(mySharedPreferences, "PREF_LIST");
+
+
+        if (prefList.equals("2") )
+        {
+            setTheme(R.style.Theme_Green);
+        }
+        else {
+            setTheme(R.style.Theme_Blue);
+        }
         setContentView(R.layout.getlicensy);
 
-        context = getApplicationContext();
 
-        MY_PREF = context.getPackageName()+"_preferences";
+
+
 
         final TextView licency = (TextView) findViewById(R.id.licency_view);
         licency.setText("You dont have licency!");

@@ -22,13 +22,13 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.*;
+import com.android.Duplom.chenge_theme.Utils;
 import com.android.Duplom.finish_decrypt.AESHelper;
 import com.android.Duplom.preferences.AppPreferences;
 
 import java.io.IOException;
 
-public class CopyDbActivity extends Activity {
-
+public class CopyDbActivity extends Activity implements SharedPreferences.OnSharedPreferenceChangeListener{
 	Cursor c=null;
     DatabaseHelper myDbHelper;
     String TAG = "Database";
@@ -41,6 +41,10 @@ public class CopyDbActivity extends Activity {
     private ListView listView;
     SharedPreferences mySharedPreferences;
     String prefList;
+    private static long back_pressed;
+
+
+
 
     Context context;
 
@@ -53,23 +57,28 @@ public class CopyDbActivity extends Activity {
 
 
         context=getApplicationContext();
-        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(CopyDbActivity.this);
+               mySharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
         MY_PREF = context.getPackageName()+"_preferences";
 
 
 
-
-
-
-
-
-
         prefList = loadLicency(mySharedPreferences, "PREF_LIST");
-        if (prefList.equals("1")){
-            setTheme(R.style.Theme_Blue);
-        } else {
+
+
+
+        if (prefList.equals("2") )
+        {
+            Log.d(TAG, "preflist = "+prefList);
             setTheme(R.style.Theme_Green);
         }
+        else {
+            Log.d(TAG, "preflist = "+prefList);
+            setTheme(R.style.Theme_Blue);
+        }
+
+
         setContentView(R.layout.main);
 
 
@@ -104,6 +113,13 @@ public class CopyDbActivity extends Activity {
         } else
 
            if (!edt.getText().toString().matches("[a-zA-Z0-9 ]+")) {
+
+               prefList = loadLicency(mySharedPreferences, "PREF_LIST");
+               if (prefList.equals("1")){
+
+               } else if (prefList.equals("2")){
+
+               }
 
                 edt.setError("Accept Alphabets and Numbers Only!");
                 searchText = null;
@@ -153,8 +169,7 @@ public class CopyDbActivity extends Activity {
                 return true;
 
             case 3:
-                Toast.makeText(getApplicationContext(),
-                        "You selected Exit", Toast.LENGTH_LONG).show();
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(CopyDbActivity.this);
                 alertDialog.setTitle("Exit?");
 
@@ -195,8 +210,6 @@ public class CopyDbActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
                 //update list when text chenging
                 updateList();
             }
@@ -205,7 +218,6 @@ public class CopyDbActivity extends Activity {
             public void afterTextChanged(Editable s) {
 
                 is_Valid_Person_Name(input);
-
             }
         });
 
@@ -246,6 +258,21 @@ public class CopyDbActivity extends Activity {
         });
 
     }
+    public void onBackPressed() {
+
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+
+
+            finish();
+        }
+        else
+
+            Toast.makeText(getBaseContext(), "Press again to exit!",
+                    Toast.LENGTH_SHORT).show();
+
+        back_pressed = System.currentTimeMillis();
+
+    }
 
     public boolean checkLicency() throws Exception {
 
@@ -253,7 +280,7 @@ public class CopyDbActivity extends Activity {
         String normalTextEnc = loadLicency(mySharedPreferences, getApplicationContext().getString(R.string.licency_kod));
         String seedValue ="bodik";
         Log.d("aes", "key+ " + seedValue);
-        String normalTextDec = " ";
+        String normalTextDec = "";
         try {
 
 
@@ -377,8 +404,34 @@ public class CopyDbActivity extends Activity {
     protected void onResume() {
 
         super.onResume();
+
     }
 
+
+
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+        if ( key.equals("PREF_LIST") ) {
+
+            if (sharedPreferences.getString(key,"").equals("2")) {
+
+                Log.d("pref","green");
+
+                Utils.changeToTheme(CopyDbActivity.this, Utils.THEME_GREEN);
+
+
+
+
+            } else {
+
+                Log.d("pref","blue");
+                Utils.changeToTheme(CopyDbActivity.this, Utils.THEME_DEFAULT);
+            }
+        }
+
+    }
 }
 
 

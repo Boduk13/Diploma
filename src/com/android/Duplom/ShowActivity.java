@@ -1,6 +1,8 @@
 package com.android.Duplom;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,6 +43,9 @@ public class ShowActivity  extends Activity {
 
 
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.show_description);
 
 
@@ -113,6 +118,7 @@ public class ShowActivity  extends Activity {
         // TODO Auto-generated method stub
         menu.add (Menu.FIRST, 1, 1, R.string.setting).setIcon(R.drawable.ic_menu_preferences);
         menu.add (Menu.FIRST, 2, 2, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
+        menu.add (Menu.FIRST, 3, 3, R.string.exit).setIcon(R.drawable.ic_menu_logout);
 
 
 
@@ -133,6 +139,30 @@ public class ShowActivity  extends Activity {
             case 2:
                 Toast.makeText(getApplicationContext(),
                         "You selected About", Toast.LENGTH_LONG).show();
+                return true;
+            case 3:
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ShowActivity.this);
+                alertDialog.setTitle("Exit?");
+
+                alertDialog.setMessage("Are you sure, exit?");
+
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+
+                        finish();
+
+
+                    }
+                });
+
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialog.show();
                 return true;
 
 

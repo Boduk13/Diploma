@@ -7,7 +7,8 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
         <EditText android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:id="@+id/editText"
@@ -33,12 +34,15 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:focusable="true"
+            android:background="@drawable/dark_pattern_bg"
             >
         <ListView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/listView"
+                android:alpha="0.5"
+
 
                 />
 
