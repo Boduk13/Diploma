@@ -21,6 +21,9 @@ public class AppPreferences extends PreferenceActivity  {
         PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-
-
+    @Override
+    protected void onPause() {
+        finish();
+        super.onPause();
+    }
 }

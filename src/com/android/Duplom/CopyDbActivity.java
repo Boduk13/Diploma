@@ -239,6 +239,7 @@ public class CopyDbActivity extends Activity implements SharedPreferences.OnShar
                 try {
                     if(checkLicency()){
                         Log.d(TAG,"Licency Ok!");
+
                         startActivity(intent);
                     } else {
                         Log.d(TAG,"No licence");
@@ -420,8 +421,6 @@ public class CopyDbActivity extends Activity implements SharedPreferences.OnShar
                 Log.d("pref","green");
 
                 Utils.changeToTheme(CopyDbActivity.this, Utils.THEME_GREEN);
-
-
 
 
             } else {

@@ -3,7 +3,6 @@ package com.android.Duplom;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.Duplom.preferences.AppPreferences;
 //import com.android.Duplom.mail.MailSenderActivity;
 
 /**
@@ -116,9 +114,9 @@ public class ShowActivity  extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
-        menu.add (Menu.FIRST, 1, 1, R.string.setting).setIcon(R.drawable.ic_menu_preferences);
-        menu.add (Menu.FIRST, 2, 2, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
-        menu.add (Menu.FIRST, 3, 3, R.string.exit).setIcon(R.drawable.ic_menu_logout);
+
+        menu.add (Menu.FIRST, 1, 1, R.string.about).setIcon(R.drawable.ic_menu_start_conversation);
+        menu.add (Menu.FIRST, 2, 2, R.string.exit).setIcon(R.drawable.ic_menu_logout);
 
 
 
@@ -131,16 +129,12 @@ public class ShowActivity  extends Activity {
 
 
         switch (item.getItemId()) {
-            case 1:
-                Intent intent = new Intent(ShowActivity.this, AppPreferences.class);
-                startActivity(intent);
-                return true;
 
-            case 2:
+            case 1:
                 Toast.makeText(getApplicationContext(),
                         "You selected About", Toast.LENGTH_LONG).show();
                 return true;
-            case 3:
+            case 2:
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ShowActivity.this);
                 alertDialog.setTitle("Exit?");
@@ -149,6 +143,7 @@ public class ShowActivity  extends Activity {
 
                 alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
+
 
                         finish();
 
@@ -170,4 +165,10 @@ public class ShowActivity  extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        finish();
+        super.onBackPressed();
+    }
 }
