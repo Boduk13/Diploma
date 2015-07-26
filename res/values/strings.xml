@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, CopyDbActivity!</string>
-    <string name="app_name">NewDuplom</string>
+    <string name="app_name">Status Messages</string>
 
     <string name="_id">_id</string>
     <string name="status_mes">status_mes</string>
@@ -14,7 +14,7 @@
     <string name="about">About</string>
 
 
-    <string name="adminEmail">hbodya13@gmail.com</string>
+    <string name="adminEmail">tets@gmail.com</string>
     <string name="subject">licency</string>
     <string name="licency_kod">licency_kod</string>
     <string name="user_email">user_email</string>

@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 //import com.android.Duplom.mail.MailSenderActivity;
 
 /**
@@ -68,8 +70,18 @@ public class ShowActivity  extends Activity {
 
         rezultat2.setTextColor(Color.RED);
         rezultat4.setTextColor(Color.GREEN);
-        rezultat6.setTextColor(Color.BLUE);
-        rezultat8.setTextColor(Color.BLUE);
+        rezultat6.setTextColor(Color.GREEN);
+        rezultat8.setTextColor(Color.GREEN);
+
+///////// Enable Test mode
+/*
+        status_mes="CI01230000";
+        description="Consumer Timeout";
+        net_action="Send a function command to exit the consumer " +
+                "request state and continue or send another function command to operate the currency acceptor again";
+        on_site_action="None";
+        */
+        //
 
 
 
@@ -144,8 +156,8 @@ public class ShowActivity  extends Activity {
                 alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
 
-
                         finish();
+
 
 
                     }

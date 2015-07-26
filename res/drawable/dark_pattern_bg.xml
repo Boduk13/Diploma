@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<bitmap
-        android:src="@drawable/mocha"
+<color
         android:tileMode="repeat"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@android:color/secondary_text_dark">
 
-        </bitmap>
+        </color>

@@ -235,8 +235,9 @@ public class CopyDbActivity extends Activity implements SharedPreferences.OnShar
                 intent.putExtra(String.valueOf(R.string.net_action), errorMassege.getNetworkAction());
                 intent.putExtra(String.valueOf(R.string.on_site_action), errorMassege.getOnSiteAction());
 
+                startActivity(intent);
 ///check licensy
-                try {
+                /*try {
                     if(checkLicency()){
                         Log.d(TAG,"Licency Ok!");
 
@@ -249,7 +250,7 @@ public class CopyDbActivity extends Activity implements SharedPreferences.OnShar
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 //....
                 //---

@@ -2,9 +2,8 @@
 
 
 
-<bitmap
-        android:src="@drawable/fon"
-        android:tileMode="repeat"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<color
+    android:tileMode="repeat"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:color="@android:color/background_light">
 
-</bitmap>
+</color>
